@@ -25,7 +25,7 @@ function fetchEnemy() {
   .then(unitJson => renderEnemy(unitJson))
 }
 
-function renderEnemy(unitJson) {
+function renderEnemy(unitJson) {                                              // TODO display name and current_hp/max_hp
   document.querySelector("#e-atk").innerHTML = `Attack  ${unitJson.atk}`;
   document.querySelector("#e-def").innerHTML = `Defense ${unitJson.def}`;
   document.querySelector("#e-hp").innerHTML = `Health ${unitJson.max_hp}`;
