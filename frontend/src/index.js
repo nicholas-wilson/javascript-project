@@ -3,10 +3,19 @@ const BASE_URL = 'http://localhost:3000';
 const UNITS_URL = `${BASE_URL}/units`;
 
 // Player and Enemy Classes
+class Player {
+  // 
+}
 
 function displayEnemyStats() {
 
 }
+// EventListeners
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#fight").addEventListener("click", () => {
+    fetchEnemy();
+  })
+})
 
 // Fetch Functions/ Render Functions
 

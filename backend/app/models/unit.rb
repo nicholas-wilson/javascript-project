@@ -30,20 +30,20 @@ class Unit < ApplicationRecord
   end
 
   def random_atk(strength)
-    self.atk = rand ATK_RANGES[strength][0]..ATK_RANGES[strength][1]
+    self.atk = rand ATK_RANGES[:"#{strength}"][0]..ATK_RANGES[:"#{strength}"][1]
   end
 
   def random_def(strength)
-    self.def = rand DEF_RANGES[strength][0]..DEF_RANGES[strength][1]
+    self.def = rand DEF_RANGES[:"#{strength}"][0]..DEF_RANGES[:"#{strength}"][1]
   end
 
-  def self.random_hp(strength)
-    hp = rand HP_RANGES[strength][0]..HP_RANGES[strength][1]
+  def random_hp(strength)
+    hp = rand HP_RANGES[:"#{strength}"][0]..HP_RANGES[:"#{strength}"][1]
     self.max_hp = hp
     self.current_hp = hp
   end
 
-  def self.random_speed(strength)
-    self.speed = rand SPEED_RANGES[strength][0]..SPEED_RANGES[strength][1]
+  def random_speed(strength)
+    self.speed = rand SPEED_RANGES[:"#{strength}"][0]..SPEED_RANGES[:"#{strength}"][1]
   end
 end
