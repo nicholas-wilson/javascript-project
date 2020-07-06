@@ -4,7 +4,12 @@ const UNITS_URL = `${BASE_URL}/units`;
 
 // Player and Enemy Classes
 class Player {
-  // 
+  constructor() {
+    this.characters = [];
+  }
+  addCharacter(character) {
+    this.characters.push(character);
+  }
 }
 
 function displayEnemyStats() {
