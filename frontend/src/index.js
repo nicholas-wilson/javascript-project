@@ -21,6 +21,13 @@ class Unit {
     this.def = unitJson.def;
     this.speed = unitJson.speed;
   }
+  attack(enemyUnit) {
+    if (self.atk <= enemyUnit.def) {
+      enemyUnit.current_hp -= 1;
+    } else {
+      enemyUnit.current_hp -= (self.atk - enemyUnit.def) * 3;
+    }
+  }
 }
 
 function displayEnemyStats() {
