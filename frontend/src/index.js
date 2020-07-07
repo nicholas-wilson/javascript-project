@@ -5,21 +5,21 @@ const UNITS_URL = `${BASE_URL}/units`;
 // Player and Enemy Classes
 class Player {
   constructor() {
-    this.characters = [];
+    this.units = [];
   }
-  addCharacter(character) {
-    this.characters.push(character);
+  addUnit(unit) {
+    this.units.push(unit);
   }
 }
 
-class Character {
-  constructor(characterJson) {
-    this.name = characterJson.name;
-    this.atk = characterJson.atk;
-    this.max_hp = characterJson.max_hp;
-    this.current_hp = characterJson.max_hp;
-    this.def = characterJson.def;
-    this.speed = characterJson.speed;
+class Unit {
+  constructor(unitJson) {
+    this.name = unitJson.name;
+    this.atk = unitJson.atk;
+    this.max_hp = unitJson.max_hp;
+    this.current_hp = unitJson.max_hp;
+    this.def = unitJson.def;
+    this.speed = unitJson.speed;
   }
 }
 
