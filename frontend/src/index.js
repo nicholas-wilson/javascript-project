@@ -12,6 +12,17 @@ class Player {
   }
 }
 
+class Character {
+  constructor(characterJson) {
+    this.name = characterJson.name;
+    this.atk = characterJson.atk;
+    this.max_hp = characterJson.max_hp;
+    this.current_hp = characterJson.max_hp;
+    this.def = characterJson.def;
+    this.speed = characterJson.speed;
+  }
+}
+
 function displayEnemyStats() {
 
 }
