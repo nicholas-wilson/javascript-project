@@ -46,6 +46,13 @@ class Unit {
       enemyUnit.current_hp -= (self.atk - enemyUnit.def) * 3;
     }
   }
+  isDead() {
+    let death = false;
+    if (self.current_hp === 0) {
+      death = true;
+    }
+    return death;
+  }
 }
 
 function displayEnemyStats() {
