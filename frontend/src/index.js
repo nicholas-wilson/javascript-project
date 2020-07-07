@@ -3,6 +3,24 @@ const BASE_URL = 'http://localhost:3000';
 const UNITS_URL = `${BASE_URL}/units`;
 
 // Player and Enemy Classes
+class Battle {
+  constructor(playerUnit, enemyUnit) {
+    this.player = playerUnit;
+    this.enemy = enemyUnit;
+  }
+  fight() {
+    if (this.player.speed >= this.enemy.speed) {
+      this.player.attack(this.enemy);
+    } else {
+      this.enemy.attack(this.player);
+    }
+  }
+
+  isOver() {
+  
+  }
+}
+
 class Player {
   constructor() {
     this.units = [];
