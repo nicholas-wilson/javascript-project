@@ -10,14 +10,27 @@ class Battle {
   }
   fight() {
     if (this.player.speed >= this.enemy.speed) {
-      this.player.attack(this.enemy);
+      this.player.attack(this.enemy); // update hp on screen after attack
+      if (this.isOver()) {
+        // End battle
+      } else {
+        this.enemy.attack(this.player);
+        if (this.isOver()) {
+          // endBattle();
+        } 
+        // update hp on screen after an attack 
+      }
     } else {
       this.enemy.attack(this.player);
     }
   }
 
   isOver() {
-  
+    let over = false;
+    if (this.player.isDead() || this.enemy.isDead()) {
+      over = true;
+    }
+    return over;
   }
 }
 
