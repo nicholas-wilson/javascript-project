@@ -8,6 +8,19 @@ class Battle {
     this.player = playerUnit;
     this.enemy = enemyUnit;
   }
+  run() {
+    // handle escaping from an enemy
+    if (this.player.speed > this.enemy.speed) {
+      // end battle
+    } else if (this.enemy.speed - this.player.speed <= 5){
+      if (Math.round(Math.random())) {
+        // end battle 
+      } else {
+        this.enemy.attack(this.player);
+      }
+    }
+  }
+
   fight() {
     if (this.player.speed >= this.enemy.speed) {
       this.player.attack(this.enemy); // update hp on screen after attack
