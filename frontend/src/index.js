@@ -86,12 +86,36 @@ function displayEnemyStats() {
 }
 // EventListeners
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelector("#fight").addEventListener("click", () => {
+  document.querySelector("#find-enemy").addEventListener("click", () => {
     fetchEnemy();
+  })
+  document.querySelector("#recruit").addEventListener("click", () => {
+    recruitUnit();
   })
 })
 
 // Fetch Functions/ Render Functions
+function recruitUnit() {
+  fetch(UNITS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      level: "weak"
+    })
+  })
+  .then(response => response.json())
+  .then(unitJson => renderRecruit(unitJson))
+}
+
+function renderRecruit(unitJson) {                                              // TODO display name and current_hp/max_hp
+  document.querySelector("#atk").innerHTML = `Attack  ${unitJson.atk}`;
+  document.querySelector("#def").innerHTML = `Defense ${unitJson.def}`;
+  document.querySelector("#hp").innerHTML = `Health ${unitJson.max_hp}`;
+  document.querySelector("#speed").innerHTML = `Speed ${unitJson.speed}`;
+}
 
 function fetchEnemy() {
   fetch(UNITS_URL, {
