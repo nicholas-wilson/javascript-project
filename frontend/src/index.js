@@ -1,8 +1,7 @@
-// Global Variables and Constants
+// URLs
 const BASE_URL = 'http://localhost:3000';
 const UNITS_URL = `${BASE_URL}/units`;
-const player = new Player();
-const battle = new Battle(player);
+
 
 // Player and Enemy Classes
 class Battle {
@@ -104,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     recruitUnit();
   })
   document.querySelector("#fight").addEventListener("click", () => {
-    
+    battle.fight();
   })
 })
 
@@ -129,6 +128,7 @@ function renderRecruit(unitJson) {                                              
   document.querySelector("#def").innerHTML = `Defense ${unitJson.def}`;
   document.querySelector("#hp").innerHTML = `Health ${unitJson.max_hp}`;
   document.querySelector("#speed").innerHTML = `Speed ${unitJson.speed}`;
+  player.addUnit(new Unit(unitJson));
 }
 
 function fetchEnemy() {
@@ -151,4 +151,8 @@ function renderEnemy(unitJson) {                                              //
   document.querySelector("#e-def").innerHTML = `Defense ${unitJson.def}`;
   document.querySelector("#e-hp").innerHTML = `Health ${unitJson.max_hp}`;
   document.querySelector("#e-speed").innerHTML = `Speed ${unitJson.speed}`;
+  battle.enemy = new Unit(unitJson);
 }
+// game constants
+const player = new Player();
+const battle = new Battle(player);
