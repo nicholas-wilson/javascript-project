@@ -28,7 +28,7 @@ class Battle {
 
   fight() {
     if (this.playersUnit.speed >= this.enemy.speed) {
-      this.playersUnit.attack(this.enemy); // update hp on screen after attack
+      this.playersUnit.attack(this.enemy);
       if (this.isOver()) {
         // End battle
       } else {
@@ -49,6 +49,14 @@ class Battle {
       over = true;
     }
     return over;
+  }
+
+  updateHp(playerOrEnemy) {
+    if (playerOrEnemy === this.playersUnit) {
+      document.querySelector("#hp").innerHTML = `Health ${playerOrEnemy.current_hp}`;
+    } else {
+      document.querySelector("#e-hp").innerHTML = `Health ${playerOrEnemy.current_hp}`;
+    }
   }
 }
 
@@ -74,24 +82,22 @@ class Unit {
     this.speed = unitJson.speed;
   }
   attack(enemyUnit) {
-    if (self.atk <= enemyUnit.def) {
+    if (this.atk <= enemyUnit.def) {
       enemyUnit.current_hp -= 1;
     } else {
-      enemyUnit.current_hp -= (self.atk - enemyUnit.def) * 3;
+      enemyUnit.current_hp -= (this.atk - enemyUnit.def) * 3;
     }
+    battle.updateHp(enemyUnit);
   }
   isDead() {
     let death = false;
-    if (self.current_hp === 0) {
+    if (this.current_hp === 0) {
       death = true;
     }
     return death;
   }
 }
 
-function displayEnemyStats() {
-
-}
 // EventListeners
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#find-enemy").addEventListener("click", () => {
