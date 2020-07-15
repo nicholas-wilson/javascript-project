@@ -1,6 +1,7 @@
-// Urls
+// Global Variables and Constants
 const BASE_URL = 'http://localhost:3000';
 const UNITS_URL = `${BASE_URL}/units`;
+const battle = new Battle();
 
 // Player and Enemy Classes
 class Battle {
@@ -88,9 +89,14 @@ function displayEnemyStats() {
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#find-enemy").addEventListener("click", () => {
     fetchEnemy();
+    // after displaying the enemy to User, we want to change the display of the find-enemy button to none until the battle is over
   })
   document.querySelector("#recruit").addEventListener("click", () => {
+    // only allow this to work if the team isn't full already
     recruitUnit();
+  })
+  document.querySelector("#fight").addEventListener("click", () => {
+    
   })
 })
 
