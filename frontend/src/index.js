@@ -1,47 +1,52 @@
 // Global Variables and Constants
 const BASE_URL = 'http://localhost:3000';
 const UNITS_URL = `${BASE_URL}/units`;
-const battle = new Battle();
+const player = new Player();
+const battle = new Battle(player);
 
 // Player and Enemy Classes
 class Battle {
-  constructor(playerUnit, enemyUnit) {
-    this.player = playerUnit;
+  constructor(player, enemyUnit) {
+    this.player = player;
     this.enemy = enemyUnit;
   }
+  get playersUnit() {
+    return this.player.currentUnit;
+  }
+
   run() {
     // handle escaping from an enemy
-    if (this.player.speed > this.enemy.speed) {
+    if (this.playersUnit.speed > this.enemy.speed) {
       // end battle
-    } else if (this.enemy.speed - this.player.speed <= 5){
+    } else if (this.enemy.speed - this.playersUnit.speed <= 5){
       if (Math.round(Math.random())) {
         // end battle 
       } else {
-        this.enemy.attack(this.player);
+        this.enemy.attack(this.playersUnit);
       }
     }
   }
 
   fight() {
-    if (this.player.speed >= this.enemy.speed) {
-      this.player.attack(this.enemy); // update hp on screen after attack
+    if (this.playersUnit.speed >= this.enemy.speed) {
+      this.playersUnit.attack(this.enemy); // update hp on screen after attack
       if (this.isOver()) {
         // End battle
       } else {
-        this.enemy.attack(this.player);
+        this.enemy.attack(this.playersUnit);
         if (this.isOver()) {
           // endBattle();
         } 
         // update hp on screen after an attack 
       }
     } else {
-      this.enemy.attack(this.player);
+      this.enemy.attack(this.playersUnit);
     }
   }
 
   isOver() {
     let over = false;
-    if (this.player.isDead() || this.enemy.isDead()) {
+    if (this.playersUnit.isDead() || this.enemy.isDead()) {
       over = true;
     }
     return over;
@@ -54,6 +59,9 @@ class Player {
   }
   addUnit(unit) {
     this.units.push(unit);
+  }
+  get currentUnit() {
+    return this.units[0]; // current unit for now will be the first unit in the array
   }
 }
 
