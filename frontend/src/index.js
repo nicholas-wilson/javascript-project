@@ -57,9 +57,9 @@ class Battle {
 
   updateHp(playerOrEnemy) {
     if (playerOrEnemy === this.playersUnit) {
-      document.querySelector("#hp").innerHTML = `Health ${playerOrEnemy.current_hp}`;
+      Display.hp = playerOrEnemy.current_hp;
     } else {
-      document.querySelector("#e-hp").innerHTML = `Health ${playerOrEnemy.current_hp}`;
+      Display.enemyHp = playerOrEnemy.current_hp;
     }
   }
 }
@@ -102,6 +102,40 @@ class Unit {
   }
 }
 
+class Display {
+  static set enemyHp(value) {
+    document.querySelector("#e-hp").innerHTML = `Health ${value}`;
+  }
+
+  static set enemyAtk(value) {
+    document.querySelector("#e-atk").innerHTML = `Attack ${value}`;
+  }
+
+  static set enemySpeed(value) {
+    document.querySelector("#e-speed").innerHTML = `Speed ${value}`;
+  }
+
+  static set enemyDef(value) {
+    document.querySelector("#e-def").innerHTML = `Defense ${value}`;
+  }
+
+  static set hp(value) {
+    document.querySelector("#hp").innerHTML = `Health ${value}`;
+  }
+
+  static set atk(value) {
+    document.querySelector("#atk").innerHTML = `Attack ${value}`;
+  }
+
+  static set speed(value) {
+    document.querySelector("#speed").innerHTML = `Speed ${value}`;
+  }
+
+  static set def(value) {
+    document.querySelector("#def").innerHTML = `Defense ${value}`;
+  }
+}
+
 // EventListeners
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#find-enemy").addEventListener("click", () => {
@@ -134,10 +168,10 @@ function recruitUnit() {
 }
 
 function renderRecruit(unitJson) {                                              // TODO display name and current_hp/max_hp
-  document.querySelector("#atk").innerHTML = `Attack  ${unitJson.atk}`;
-  document.querySelector("#def").innerHTML = `Defense ${unitJson.def}`;
-  document.querySelector("#hp").innerHTML = `Health ${unitJson.max_hp}`;
-  document.querySelector("#speed").innerHTML = `Speed ${unitJson.speed}`;
+  Display.atk = unitJson.atk;
+  Display.def = unitJson.def;
+  Display.hp = unitJson.max_hp;
+  Display.speed = unitJson.speed;
   player.addUnit(new Unit(unitJson));
 }
 
@@ -157,10 +191,10 @@ function fetchEnemy() {
 }
 
 function renderEnemy(unitJson) {                                              // TODO display name and current_hp/max_hp
-  document.querySelector("#e-atk").innerHTML = `Attack  ${unitJson.atk}`;
-  document.querySelector("#e-def").innerHTML = `Defense ${unitJson.def}`;
-  document.querySelector("#e-hp").innerHTML = `Health ${unitJson.max_hp}`;
-  document.querySelector("#e-speed").innerHTML = `Speed ${unitJson.speed}`;
+  Display.enemyAtk = unitJson.atk;
+  Display.enemyDef = unitJson.def;
+  Display.enemyHp = unitJson.max_hp;
+  Display.enemySpeed = unitJson.speed;
   battle.enemy = new Unit(unitJson);
 }
 // game constants
