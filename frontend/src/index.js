@@ -16,34 +16,37 @@ class Battle {
   run() {
     // handle escaping from an enemy
     if (this.playersUnit.speed > this.enemy.speed) {
-      // end battle
+      // battle will end
     } else if (this.enemy.speed - this.playersUnit.speed <= 5){
       if (Math.round(Math.random())) {
-        // end battle 
+        // battle will end
       } else {
         this.enemy.attack(this.playersUnit);
       }
+    } else {
+      this.enemy.attack(this.playersUnit);
     }
+    this.endBattle();
   }
 
   fight() {
     if (this.playersUnit.speed >= this.enemy.speed) {
       this.playersUnit.attack(this.enemy);
       if (this.isOver()) {
-        // End battle
+        this.endBattle();
       } else {
         this.enemy.attack(this.playersUnit);
       }
     } else {
       this.enemy.attack(this.playersUnit);
       if (this.isOver()) {
-        // end battle
+        this.endBattle();
       } else {
         this.playersUnit.attack(this.enemy);
       }
     }
     if (this.isOver()) {
-      // endBattle();
+      this.endBattle();
     }
   }
 
@@ -61,6 +64,13 @@ class Battle {
     } else {
       Display.enemyHp = playerOrEnemy.current_hp;
     }
+  }
+
+  endBattle() {
+    Display.clearEnemy();
+    // if (this.enemy.isDead()) remove them from the api DB
+    Display.clearPlayersUnit();
+    // if (this.playersUnit.isDead()) remove them from the api DB
   }
 }
 
@@ -133,6 +143,20 @@ class Display {
 
   static set def(value) {
     document.querySelector("#def").innerHTML = `Defense ${value}`;
+  }
+
+  static clearEnemy() {
+    Display.enemySpeed = "?";
+    Display.enemyAtk = "?";
+    Display.enemyDef = "?";
+    Display.enemyHp = "?";
+  }
+
+  static clearPlayersUnit() {
+    Display.speed = "?";
+    Display.atk = "?";
+    Display.def = "?";
+    Display.hp = "?";
   }
 }
 
