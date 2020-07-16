@@ -33,13 +33,17 @@ class Battle {
         // End battle
       } else {
         this.enemy.attack(this.playersUnit);
-        if (this.isOver()) {
-          // endBattle();
-        } 
-        // update hp on screen after an attack 
       }
     } else {
       this.enemy.attack(this.playersUnit);
+      if (this.isOver()) {
+        // end battle
+      } else {
+        this.playersUnit.attack(this.enemy);
+      }
+    }
+    if (this.isOver()) {
+      // endBattle();
     }
   }
 
