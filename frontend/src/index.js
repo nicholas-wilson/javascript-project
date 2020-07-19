@@ -71,6 +71,8 @@ class Battle {
     // if (this.enemy.isDead()) remove them from the api DB
     Display.clearPlayersUnit();
     // if (this.playersUnit.isDead()) remove them from the api DB
+    Display.showButton("find-enemy");
+    Display.hideButton("fight");
   }
 }
 
@@ -158,13 +160,21 @@ class Display {
     Display.def = "?";
     Display.hp = "?";
   }
+
+  static hideButton(btnId) {
+    document.querySelector(`#${btnId}`).style.display = "none";
+  }
+
+  static showButton(btnId) {
+    document.querySelector(`#${btnId}`).style.display = "";
+  }
 }
 
 // EventListeners
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#find-enemy").addEventListener("click", () => {
     fetchEnemy();
-    // after displaying the enemy to User, we want to change the display of the find-enemy button to none until the battle is over
+    Display.hideButton("find-enemy");
   })
   document.querySelector("#recruit").addEventListener("click", () => {
     // only allow this to work if the team isn't full already
