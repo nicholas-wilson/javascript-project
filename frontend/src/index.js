@@ -105,7 +105,7 @@ class Unit {
   }
   isDead() {
     let death = false;
-    if (this.current_hp === 0) {
+    if (this.current_hp < 0) {
       death = true;
     }
     return death;
