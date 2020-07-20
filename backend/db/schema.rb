@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_175700) do
+ActiveRecord::Schema.define(version: 2020_07_20_182954) do
 
   create_table "teams", force: :cascade do |t|
-    t.integer "money"
+    t.integer "money", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
