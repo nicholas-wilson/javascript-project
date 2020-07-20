@@ -1,4 +1,6 @@
 class Unit < ApplicationRecord
+  belongs_to :team
+  
   ATK_RANGES = {
     weak: [1, 10],
     average: [11, 25],
