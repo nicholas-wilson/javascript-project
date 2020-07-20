@@ -1,7 +1,7 @@
 // URLs
 const BASE_URL = 'http://localhost:3000';
 const UNITS_URL = `${BASE_URL}/units`;
-
+const TEAMS_URL = `${BASE_URL}/teams`;
 
 // Player and Enemy Classes
 class Battle {
@@ -183,9 +183,17 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#fight").addEventListener("click", () => {
     battle.fight();
   })
+  // team buttons
+  document.querySelector("#load-team").addEventListener("click", () => {
+    // send fetch request to api to find team based on an id
+    const teamId = parseInt(document.querySelector("#team-id").innerHTML);
+    findTeam(teamId);
+  })
 })
 
 // Fetch Functions/ Render Functions
+
+
 function recruitUnit() {
   fetch(UNITS_URL, {
     method: "POST",
