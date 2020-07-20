@@ -192,7 +192,15 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 // Fetch Functions/ Render Functions
+function findTeam(teamId) {
+  fetch(`${TEAMS_URL}/${teamId}`)
+  .then(response => response.json())
+  .then(teamJson => renderTeam(teamJson))
+}
 
+function renderTeam(teamJson) {
+  console.log(teamJson);
+}
 
 function recruitUnit() {
   fetch(UNITS_URL, {
