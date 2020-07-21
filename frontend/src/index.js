@@ -184,9 +184,10 @@ document.addEventListener("DOMContentLoaded", () => {
     battle.fight();
   })
   // team buttons
-  document.querySelector("#load-team").addEventListener("click", () => {
+  document.querySelector("#load-team").addEventListener("click", function(event) {
     // send fetch request to api to find team based on an id
-    const teamId = parseInt(document.querySelector("#team-id").innerHTML);
+    event.preventDefault();
+    const teamId = parseInt(document.querySelector("#team-id").value);
     findTeam(teamId);
   })
   document.querySelector("#new-team").addEventListener("click", () => {
