@@ -10,7 +10,7 @@
       <button id="new-team">New Team</button>
       <form><button id="load-team">Load Team</button><input type="text" id="team-id" placeholder="Enter Team Id"></form>
       <p id="team-id-number"></p>
-      <button id="recruit">Recruit a Unit</button>
+      <button class="hidden" id="recruit">Recruit a Unit</button>
     </div>
     <main>
       <div class="battle-grid-item" id="top-left">ENEMY STATS
@@ -19,18 +19,18 @@
         <p id="e-hp">Health</p>
         <p id="e-speed">Speed</p>
       </div>
-      <div class="battle-grid-item" id="top-middle">ENEMY PNG</div>
+      <div class="battle-grid-item" id="top-middle"><img src="" alt="ENEMY PNG" class="hidden"></div>
       <div class="battle-grid-item" id="bot-left">OUR STATS
         <p id="atk">Attack</p>
         <p id="def">Defense</p>
         <p id="hp">Health</p>
         <p id="speed">Speed</p>
       </div>
-      <div class="battle-grid-item" id="bot-middle">OUR PNG</div>
+      <div class="battle-grid-item" id="bot-middle"><img src="" alt="OUR PNG" class="hidden"></div>
       <div class="battle-grid-item" id="bot-right">
-        <button id="find-enemy">Look for an enemy</button>
-        <button id="fight">Fight the enemy!</button>
-        <button id="run">Run Away</button>
+        <button id="find-enemy" class="hidden">Look for an enemy</button>
+        <button id="fight" class="hidden">Fight the enemy!</button>
+        <button id="run" class="hidden">Run Away</button>
       </div>
     </main>
   </body>
