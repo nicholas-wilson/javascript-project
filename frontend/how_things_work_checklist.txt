@@ -1,1 +1,48 @@
 I shall write out the flow of the application/display here.
+START
+  Show :
+    "screen"
+    blank stats
+    only show New Team and Load Team buttons
+
+AFTER Team load/created
+  Hide:
+    team buttons
+  Show:
+    Recruit Unit Button
+    Other team options if I add some
+
+AFTER We have a Unit
+  Show:
+    Find Enemy Button
+
+AFTER We have an Enemy
+  Hide:
+    Find Enemy Button
+  Disable:
+    Recruit unit button
+    Team options/ like healing etc.
+  Show:
+    Fight button
+    Run button
+    Stats
+    Unit Images
+
+DURING An attack
+  display message like "UnitName hit EnemyUnit dealing X damage!"
+  Use a method to space out the attacks. For example: Our unit hits first and so our hit and message shows up and then the enemy will attack afterwards. No "instant" turns
+  
+AFTER a Unit dies
+  Ends Battle
+  Unit removed from DB
+  GAME OVER if your team is out of Units
+  Update:
+    Team's money
+    Unit's stats
+  Hide:
+    battle buttons
+  Show:
+    Find Enemy button
+  Enable:
+    Recruit unit button
+    Team Options
