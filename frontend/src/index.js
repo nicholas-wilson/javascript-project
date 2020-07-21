@@ -198,6 +198,19 @@ function findTeam(teamId) {
   .then(teamJson => renderTeam(teamJson))
 }
 
+function newTeam() {
+  fetch(TEAMS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "content/json"
+    },
+    body: ""
+  })
+  .then(response => response.json())
+  .then(teamJson => renderTeam(teamJson))
+}
+
 function renderTeam(teamJson) {
   console.log(teamJson);
 }
