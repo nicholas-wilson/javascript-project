@@ -189,6 +189,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const teamId = parseInt(document.querySelector("#team-id").innerHTML);
     findTeam(teamId);
   })
+  document.querySelector("#new-team").addEventListener("click", () => {
+    newTeam();
+  })
 })
 
 // Fetch Functions/ Render Functions
