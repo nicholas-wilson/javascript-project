@@ -71,8 +71,8 @@ class Battle {
     // if (this.enemy.isDead()) remove them from the api DB
     Display.clearPlayersUnit();
     // if (this.playersUnit.isDead()) remove them from the api DB
-    Display.showButton("find-enemy");
-    Display.hideButton("fight");
+    Display.showElement("find-enemy");
+    Display.hideElement("fight");
   }
 }
 
@@ -161,12 +161,12 @@ class Display {
     Display.hp = "?";
   }
 
-  static hideButton(btnId) {
-    document.querySelector(`#${btnId}`).style.display = "none";
+  static hideElement(elementId) {
+    document.querySelector(`#${elementId}`).className = "hidden";
   }
 
-  static showButton(btnId) {
-    document.querySelector(`#${btnId}`).style.display = "";
+  static showElement(elementId) {
+    document.querySelector(`#${elementId}`).className = "";
   }
 }
 
@@ -174,7 +174,7 @@ class Display {
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#find-enemy").addEventListener("click", () => {
     fetchEnemy();
-    Display.hideButton("find-enemy");
+    Display.hideElement("find-enemy");
   })
   document.querySelector("#recruit").addEventListener("click", () => {
     // only allow this to work if the team isn't full already
