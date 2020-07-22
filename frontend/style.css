@@ -7,9 +7,34 @@ body {
 
 #side-bar {
   display: grid;
-  grid-template-rows: 1fr 1fr 2fr;
+  grid-template-rows: 1fr 2fr;
   border-style: outset;
   padding: 5px;
+}
+
+#team {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+
+#unit-1 {
+  grid-row-start: 1;
+  grid-row-end: 2;
+  text-align: center;
+}
+
+#unit-2 {
+  grid-row-start: 2;
+  grid-row-end: 3;
+  text-align: center;
+}
+
+#unit-3 {
+  grid-row-start: 3;
+  grid-row-end: 4;
+  text-align: center;
 }
 
 main {
