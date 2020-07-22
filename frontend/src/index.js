@@ -176,6 +176,9 @@ class Display {
     Display.hideElement("id-form");
     Display.hideElement("new-team");
     Display.showElement("recruit");
+    if (player.units.length === 3) {
+      document.querySelector("#recruit").disabled = true;
+    }
     // add show for any other team options I add
   }
 
@@ -200,11 +203,14 @@ class Display {
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#find-enemy").addEventListener("click", () => {
     fetchEnemy();
-    Display.hideElement("find-enemy");
+    Display.battleStart();
   })
-  document.querySelector("#recruit").addEventListener("click", () => {
-    // only allow this to work if the team isn't full already
+  document.querySelector("#recruit").addEventListener("click", function(event) {
     recruitUnit();
+    if (player.units.length === 2) {
+      event.target.disabled = true;
+    }
+    Display.showElement("find-enemy");
   })
   document.querySelector("#fight").addEventListener("click", () => {
     battle.fight();
@@ -215,9 +221,11 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const teamId = parseInt(document.querySelector("#team-id").value);
     findTeam(teamId);
+    Display.loadTeam();
   })
   document.querySelector("#new-team").addEventListener("click", () => {
     newTeam();
+    Display.loadTeam();
   })
 })
 
