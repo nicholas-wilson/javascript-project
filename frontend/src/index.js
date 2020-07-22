@@ -79,6 +79,8 @@ class Battle {
 class Player {
   constructor() {
     this.units = [];
+    this.money = 0;
+    this.teamId = "?";
   }
   addUnit(unit) {
     this.units.push(unit);
@@ -93,7 +95,7 @@ class Unit {
     this.name = unitJson.name;
     this.atk = unitJson.atk;
     this.max_hp = unitJson.max_hp;
-    this.current_hp = unitJson.max_hp;
+    this.current_hp = unitJson.current_hp;
     this.def = unitJson.def;
     this.speed = unitJson.speed;
   }
@@ -199,7 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
 function findTeam(teamId) {
   fetch(`${TEAMS_URL}/${teamId}`)
   .then(response => response.json())
-  .then(teamJson => renderTeam(teamJson))
+  .then(teamJson => renderTeamIfFound(teamJson))
 }
 
 function newTeam() {
@@ -215,8 +217,21 @@ function newTeam() {
   .then(teamJson => renderTeam(teamJson))
 }
 
-function renderTeam(teamJson) {
-  console.log(teamJson);
+function renderTeamIfFound(teamJson) {
+  if (teamJson) {
+    renderTeam(teamJson, true);
+  } else {
+    // tell user that no team was found
+  }
+}
+
+function renderTeam(teamJson, oldTeam=false) {
+  if (oldTeam) {
+    for (let i = 0; i < teamJson.units.length; i++) {
+      let newUnit = new Unit()
+    }
+  }
+  Player.teamId = teamJson.id;
 }
 
 function recruitUnit() {
