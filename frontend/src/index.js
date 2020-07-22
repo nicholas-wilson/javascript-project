@@ -170,6 +170,10 @@ class Display {
   static showElement(elementId) {
     document.querySelector(`#${elementId}`).className = "";
   }
+
+  static changeHTML(elementId, html) {
+    document.querySelector(`#${elementId}`).innerHTML = html;
+  }
 }
 
 // EventListeners
@@ -221,17 +225,19 @@ function renderTeamIfFound(teamJson) {
   if (teamJson) {
     renderTeam(teamJson, true);
   } else {
-    // tell user that no team was found
+    Display.changeHTML("team-id-number", "Invalid team id, please try a Different id number or make a new team.");
   }
 }
 
 function renderTeam(teamJson, oldTeam=false) {
   if (oldTeam) {
     for (let i = 0; i < teamJson.units.length; i++) {
-      let newUnit = new Unit()
+      let newUnit = new Unit(teamJson.units[i]);
+      Player.addUnit(newUnit);
     }
   }
   Player.teamId = teamJson.id;
+  Display.changeHTML("team-id-number", `Your team's id number is: ${teamJson.id}`);
 }
 
 function recruitUnit() {
