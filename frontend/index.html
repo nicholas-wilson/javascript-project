@@ -8,7 +8,7 @@
   <body>
     <div id="side-bar">TEAM AND OPTIONS WILL GO HERE
       <button id="new-team">New Team</button>
-      <form><button id="load-team">Load Team</button><input type="text" id="team-id" placeholder="Enter Team Id"></form>
+      <form id="id-form"><button id="load-team">Load Team</button><input type="text" id="team-id" placeholder="Enter Team Id"></form>
       <p id="team-id-number"></p>
       <button class="hidden" id="recruit">Recruit a Unit</button>
     </div>
@@ -19,14 +19,14 @@
         <p id="e-hp">Health</p>
         <p id="e-speed">Speed</p>
       </div>
-      <div class="battle-grid-item" id="top-middle"><img src="" alt="ENEMY PNG" class="hidden"></div>
+      <div class="battle-grid-item" id="top-middle"><img src="" alt="ENEMY PNG" class="hidden" id="enemy-img"></div>
       <div class="battle-grid-item" id="bot-left">OUR STATS
         <p id="atk">Attack</p>
         <p id="def">Defense</p>
         <p id="hp">Health</p>
         <p id="speed">Speed</p>
       </div>
-      <div class="battle-grid-item" id="bot-middle"><img src="" alt="OUR PNG" class="hidden"></div>
+      <div class="battle-grid-item" id="bot-middle"><img src="" alt="OUR PNG" class="hidden" id="player-img"></div>
       <div class="battle-grid-item" id="bot-right">
         <button id="find-enemy" class="hidden">Look for an enemy</button>
         <button id="fight" class="hidden">Fight the enemy!</button>

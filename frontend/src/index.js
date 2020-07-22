@@ -67,12 +67,9 @@ class Battle {
   }
 
   endBattle() {
-    Display.clearEnemy();
+    Display.battleEnd();
     // if (this.enemy.isDead()) remove them from the api DB
-    Display.clearPlayersUnit();
     // if (this.playersUnit.isDead()) remove them from the api DB
-    Display.showElement("find-enemy");
-    Display.hideElement("fight");
   }
 }
 
@@ -173,6 +170,29 @@ class Display {
 
   static changeHTML(elementId, html) {
     document.querySelector(`#${elementId}`).innerHTML = html;
+  }
+
+  static loadTeam() {
+    Display.hideElement("id-form");
+    Display.hideElement("new-team");
+    Display.showElement("recruit");
+    // add show for any other team options I add
+  }
+
+  static battleStart() {
+    Display.hideElement("find-enemy");
+    Display.showElement("fight");
+    Display.showElement("run");
+    Display.showElement("player-img");
+    Display.showElement("enemy-img");
+  }
+
+  static battleEnd() {
+    Display.clearEnemy();
+    Display.clearPlayersUnit();
+    Display.showElement("find-enemy");
+    Display.hideElement("fight");
+    Display.hideElement("run");
   }
 }
 
