@@ -263,6 +263,7 @@ function newTeam() {
 function renderTeamIfFound(teamJson) {
   if (teamJson) {
     renderTeam(teamJson, true);
+    player.teamId = teamJson.id;
   } else {
     Display.changeHTML("team-id-number", "Invalid team id, please try a Different id number or make a new team.");
   }
@@ -287,7 +288,8 @@ function recruitUnit() {
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      level: "weak"
+      level: "weak",
+      teamId: `${player.teamId}`
     })
   })
   .then(response => response.json())
