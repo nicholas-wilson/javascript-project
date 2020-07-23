@@ -201,6 +201,14 @@ class Display {
     Display.showElement("enemy-img");
   }
 
+  static attackDialog(unitName, targetName, damage) {
+    Display.changeBattleText(`${unitName} attacked ${targetName} and dealt ${damage} damage!`);
+  }
+
+  static changeBattleText(text) {
+    Display.changeHTML("battle-text", text);
+  }
+
   static battleEnd() {
     Display.clearEnemy();
     Display.clearPlayersUnit();
