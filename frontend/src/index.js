@@ -172,6 +172,16 @@ class Display {
     document.querySelector(`#${elementId}`).innerHTML = html;
   }
 
+  static teamUnitInfo() {
+    for (let i = 0; i < player.units.length; i++) {
+      Display.changeHTML(`name-${i + 1}`, player.units[i].name);
+      Display.changeHTML(`atk-${i + 1}`, `Attack ${player.units[i].atk}`);
+      Display.changeHTML(`def-${i + 1}`, `Defence ${player.units[i].def}`);
+      Display.changeHTML(`hp-${i + 1}`, `Health ${player.units[i].current_hp}/${player.units[i].max_hp}`);
+      Display.changeHTML(`speed-${i + 1}`, `Speed ${player.units[i].speed}`);
+    }
+  }
+
   static loadTeam() {
     Display.hideElement("id-form");
     Display.hideElement("new-team");
@@ -179,6 +189,7 @@ class Display {
     if (player.units.length === 3) {
       document.querySelector("#recruit").disabled = true;
     }
+    Display.teamUnitInfo();
     // add show for any other team options I add
   }
 
@@ -261,7 +272,7 @@ function renderTeam(teamJson, oldTeam=false) {
   if (oldTeam) {
     for (let i = 0; i < teamJson.units.length; i++) {
       let newUnit = new Unit(teamJson.units[i]);
-      Player.addUnit(newUnit);
+      player.addUnit(newUnit);
     }
   }
   Player.teamId = teamJson.id;
@@ -289,6 +300,7 @@ function renderRecruit(unitJson) {                                              
   Display.hp = unitJson.max_hp;
   Display.speed = unitJson.speed;
   player.addUnit(new Unit(unitJson));
+  Display.teamUnitInfo();
 }
 
 function fetchEnemy() {
