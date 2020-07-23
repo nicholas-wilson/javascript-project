@@ -232,11 +232,9 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const teamId = parseInt(document.querySelector("#team-id").value);
     findTeam(teamId);
-    Display.loadTeam();
   })
   document.querySelector("#new-team").addEventListener("click", () => {
     newTeam();
-    Display.loadTeam();
   })
 })
 
@@ -276,8 +274,9 @@ function renderTeam(teamJson, oldTeam=false) {
       player.addUnit(newUnit);
     }
   }
-  Player.teamId = teamJson.id;
+  player.teamId = teamJson.id;
   Display.changeHTML("team-id-number", `Your team's id number is: ${teamJson.id}`);
+  Display.loadTeam();
 }
 
 function recruitUnit() {
