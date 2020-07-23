@@ -7,7 +7,7 @@ body {
 
 #side-bar {
   display: grid;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 1fr 4fr;
   border-style: outset;
   padding: 5px;
 }
