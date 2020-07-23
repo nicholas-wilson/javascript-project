@@ -29,6 +29,7 @@ class Unit < ApplicationRecord
     random_def(strength)
     random_hp(strength)
     random_speed(strength)
+    self.name = Faker::Name.first_name
   end
 
   def random_atk(strength)
