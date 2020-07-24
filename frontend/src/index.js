@@ -95,6 +95,7 @@ class Unit {
     this.current_hp = unitJson.current_hp;
     this.def = unitJson.def;
     this.speed = unitJson.speed;
+    this.id = unitJson.id
   }
   attack(enemyUnit) {
     let damage = 1;
