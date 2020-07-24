@@ -105,7 +105,7 @@ class Unit {
       enemyUnit.current_hp -= damage;
     }
     battle.updateHp(enemyUnit);
-    Display.attackDialog(this.name, enemyUnit.name, damage)
+    Display.attackDialog(this.name, enemyUnit.name, damage);
   }
   isDead() {
     let death = false;
@@ -163,6 +163,14 @@ class Display {
     Display.hp = "?";
   }
 
+  static showCurrentUnitsStats() {
+    // Display.name = `${player.currentUnit.name}`;  TODO make this method
+    Display.speed = `${player.currentUnit.speed}`;
+    Display.atk = `${player.currentUnit.atk}`;
+    Display.def = `${player.currentUnit.def}`;
+    Display.hp = `${player.currentUnit.current_hp}`;
+  }
+
   static hideElement(elementId) {
     document.querySelector(`#${elementId}`).className = "hidden";
   }
@@ -193,6 +201,10 @@ class Display {
       document.querySelector("#recruit").disabled = true;
     }
     Display.teamUnitInfo();
+    if (player.currentUnit) {
+      Display.showCurrentUnitsStats();
+      Display.showElement("find-enemy");
+    }
     // add show for any other team options I add
   }
 
