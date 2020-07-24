@@ -97,12 +97,15 @@ class Unit {
     this.speed = unitJson.speed;
   }
   attack(enemyUnit) {
+    let damage = 1;
     if (this.atk <= enemyUnit.def) {
-      enemyUnit.current_hp -= 1;
+      enemyUnit.current_hp -= damage;
     } else {
-      enemyUnit.current_hp -= (this.atk - enemyUnit.def) * 3;
+      damage = this.atk - enemyUnit.def + 1;
+      enemyUnit.current_hp -= damage;
     }
     battle.updateHp(enemyUnit);
+    Display.attackDialog(this.name, enemyUnit.name, damage)
   }
   isDead() {
     let death = false;
