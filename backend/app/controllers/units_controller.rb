@@ -9,4 +9,13 @@ class UnitsController < ApplicationController
     end
     render json: dude
   end
+
+  def update
+    dude = Unit.find_by(id: params["id"])
+    puts params
+  end
+
+  def destroy
+    Unit.find_by(id: params["id"]).delete
+  end
 end
