@@ -117,6 +117,9 @@ class Unit {
 }
 
 class Display {
+  static set enemyName(value) {
+    document.querySelector("#e-name").innerHTML = value;
+  }
   static set enemyHp(value) {
     document.querySelector("#e-hp").innerHTML = `Health ${value}`;
   }
@@ -131,6 +134,10 @@ class Display {
 
   static set enemyDef(value) {
     document.querySelector("#e-def").innerHTML = `Defense ${value}`;
+  }
+
+  static set name(value) {
+    document.querySelector("#name").innerHTML = value;
   }
 
   static set hp(value) {
@@ -164,7 +171,7 @@ class Display {
   }
 
   static showCurrentUnitsStats() {
-    // Display.name = `${player.currentUnit.name}`;  TODO make this method
+    Display.name = `${player.currentUnit.name}`;
     Display.speed = `${player.currentUnit.speed}`;
     Display.atk = `${player.currentUnit.atk}`;
     Display.def = `${player.currentUnit.def}`;
@@ -318,7 +325,8 @@ function recruitUnit() {
   .then(unitJson => renderRecruit(unitJson))
 }
 
-function renderRecruit(unitJson) {                                              // TODO display name and current_hp/max_hp
+function renderRecruit(unitJson) {
+  Display.name = unitJson.name;
   Display.atk = unitJson.atk;
   Display.def = unitJson.def;
   Display.hp = unitJson.max_hp;
@@ -342,7 +350,8 @@ function fetchEnemy() {
   .then(unitJson => renderEnemy(unitJson))
 }
 
-function renderEnemy(unitJson) {                                              // TODO display name and current_hp/max_hp
+function renderEnemy(unitJson) {
+  Display.enemyName = unitJson.name;
   Display.enemyAtk = unitJson.atk;
   Display.enemyDef = unitJson.def;
   Display.enemyHp = unitJson.max_hp;
