@@ -31,22 +31,22 @@ class Battle {
 
   fight() {
     if (this.playersUnit.speed >= this.enemy.speed) {
-      this.playersUnit.attack(this.enemy);
+      setTimeout(Display.attackDialog, 2000, this.playersUnit.name, this.enemy.name, this.playersUnit.attack(this.enemy));
       if (this.isOver()) {
         this.endBattle();
       } else {
-        this.enemy.attack(this.playersUnit);
+        setTimeout(Display.attackDialog, 3000, this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit));
       }
     } else {
-      this.enemy.attack(this.playersUnit);
+      setTimeout(Display.attackDialog, 2000, this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit));
       if (this.isOver()) {
         this.endBattle();
       } else {
-        this.playersUnit.attack(this.enemy);
+        setTimeout(Display.attackDialog, 3000, this.playersUnit.name, this.enemy.name, this.playersUnit.attack(this.enemy));
       }
     }
     if (this.isOver()) {
-      this.endBattle();
+      setTimeout(this.endBattle, 4000);
     }
   }
 
@@ -105,7 +105,7 @@ class Unit {
       enemyUnit.current_hp -= damage;
     }
     battle.updateHp(enemyUnit);
-    Display.attackDialog(this.name, enemyUnit.name, damage);
+    return damage;
   }
   isDead() {
     let death = false;
