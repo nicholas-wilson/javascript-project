@@ -68,8 +68,10 @@ class Battle {
 
   endBattle() {
     Display.battleEnd();
-    // if (this.enemy.isDead()) remove them from the api DB
-    // if (this.playersUnit.isDead()) remove them from the api DB
+    if (this.playersUnit.isDead()) {
+      removeUnitFromDb(this.playersUnit);
+      this.player.units.shift();
+    }
   }
 }
 
@@ -349,6 +351,12 @@ function fetchEnemy() {
   })
   .then(response => response.json())
   .then(unitJson => renderEnemy(unitJson))
+}
+
+function removeUnitFromDb(unit) {
+  fetch(`${UNITS_URL}/${unit.id}`, {
+    method: "DELETE"
+  })
 }
 
 function renderEnemy(unitJson) {
