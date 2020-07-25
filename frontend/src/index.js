@@ -71,6 +71,8 @@ class Battle {
     if (this.playersUnit.isDead()) {
       removeUnitFromDb(this.playersUnit);
       this.player.units.shift();
+    } else {
+      updateUnitInDb(this.playersUnit);
     }
   }
 }
@@ -356,6 +358,17 @@ function fetchEnemy() {
 function removeUnitFromDb(unit) {
   fetch(`${UNITS_URL}/${unit.id}`, {
     method: "DELETE"
+  })
+}
+
+function updateUnitInDb(unit) {
+  fetch(`${UNITS_URL}/${unit.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify(unit)
   })
 }
 
