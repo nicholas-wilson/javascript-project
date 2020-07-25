@@ -30,23 +30,29 @@ class Battle {
   }
 
   fight() {
+    let html = "";
     if (this.playersUnit.speed >= this.enemy.speed) {
-      setTimeout(Display.attackDialog, 2000, this.playersUnit.name, this.enemy.name, this.playersUnit.attack(this.enemy));
+      html += `<li>${Display.attackDialog(this.playersUnit.name, this.enemy.name, this.playersUnit.attack(this.enemy))}</li>`;
       if (this.isOver()) {
-        this.endBattle();
+        this.endBattle(true, false, 10000000); // add money when wins
       } else {
-        setTimeout(Display.attackDialog, 3000, this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit));
+        html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
       }
     } else {
-      setTimeout(Display.attackDialog, 2000, this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit));
+      html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
       if (this.isOver()) {
         this.endBattle();
       } else {
-        setTimeout(Display.attackDialog, 3000, this.playersUnit.name, this.enemy.name, this.playersUnit.attack(this.enemy));
+        html += `<li>${Display.attackDialog(this.playersUnit.name, this.enemy.name, this.playersUnit.attack(this.enemy))}</li>`;
       }
     }
+    Display.changeBattleText(html);
     if (this.isOver()) {
-      setTimeout(this.endBattle, 4000);
+      if(this.enemy.isDead()) {
+        this.endBattle(true, false, 10000000);
+      } else {
+        this.endBattle();
+      }
     }
   }
 
@@ -66,8 +72,8 @@ class Battle {
     }
   }
 
-  endBattle() {
-    Display.battleEnd();
+  endBattle(won=false, ranAway=false, money=0) {
+    Display.battleEnd(won, ranAway, money);
     if (this.playersUnit.isDead()) {
       removeUnitFromDb(this.playersUnit);
       this.player.units.shift();
@@ -231,11 +237,11 @@ class Display {
   }
 
   static attackDialog(unitName, targetName, damage) {
-    Display.changeBattleText(`${unitName} attacked ${targetName} and dealt ${damage} damage!`);
+    return `${unitName} attacked ${targetName} and dealt ${damage} damage!`;
   }
 
-  static changeBattleText(text) {
-    Display.changeHTML("battle-text", text);
+  static changeBattleText(html) {
+    Display.changeHTML("battle-text", html);
   }
 
   static battleEnd(won=false, ranAway=false, money=0) {
