@@ -47,6 +47,7 @@ class Battle {
       }
     }
     Display.changeBattleText(html);
+    Display.teamUnitInfo();
     if (this.isOver()) {
       if(this.enemy.isDead()) {
         this.endBattle(true, false, 10000000);
