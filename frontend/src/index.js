@@ -34,14 +34,14 @@ class Battle {
     if (this.playersUnit.speed >= this.enemy.speed) {
       html += `<li>${Display.attackDialog(this.playersUnit.name, this.enemy.name, this.playersUnit.attack(this.enemy))}</li>`;
       if (this.isOver()) {
-        this.endBattle(true, false, 10000000); // add money when wins
+        // battle ends add money when wins
       } else {
         html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
       }
     } else {
       html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
       if (this.isOver()) {
-        this.endBattle();
+        // battle ends
       } else {
         html += `<li>${Display.attackDialog(this.playersUnit.name, this.enemy.name, this.playersUnit.attack(this.enemy))}</li>`;
       }
@@ -168,18 +168,12 @@ class Display {
     document.querySelector("#def").innerHTML = `Defense ${value}`;
   }
 
-  static clearEnemy() {
-    Display.enemySpeed = "?";
-    Display.enemyAtk = "?";
-    Display.enemyDef = "?";
-    Display.enemyHp = "?";
-  }
-
-  static clearPlayersUnit() {
-    Display.speed = "?";
-    Display.atk = "?";
-    Display.def = "?";
-    Display.hp = "?";
+  static clearEnemy(hp="") {
+    Display.enemyName = "";
+    Display.enemyHp = hp;
+    Display.enemySpeed = "";
+    Display.enemyAtk = "";
+    Display.enemyDef = "";
   }
 
   static showCurrentUnitsStats() {
@@ -245,17 +239,18 @@ class Display {
   }
 
   static battleEnd(won=false, ranAway=false, money=0) {
-    Display.clearEnemy();
-    Display.clearPlayersUnit();
     Display.showElement("find-enemy");
     Display.hideElement("fight");
     Display.hideElement("run");
     if (won) {
+      Display.clearEnemy("DEAD");
       Display.changeBattleText(`${player.currentUnit.name} has won the fight! You got $${money} for winning!`);
     } else if (ranAway) {
+      Display.clearEnemy()
       Display.changeBattleText(`${player.currentUnit.name} successfully escaped from ${battle.enemy.name}!`);
     } else {
       Display.changeBattleText(`${player.currentUnit.name} has died in battle. You have lost. Rest in peace ${player.currentUnit.name}.`);
+      Display.showCurrentUnitsStats();
     }
   }
 }
@@ -346,12 +341,12 @@ function recruitUnit() {
 }
 
 function renderRecruit(unitJson) {
-  Display.name = unitJson.name;
-  Display.atk = unitJson.atk;
-  Display.def = unitJson.def;
-  Display.hp = unitJson.max_hp;
-  Display.speed = unitJson.speed;
   player.addUnit(new Unit(unitJson));
+  Display.name = player.currentUnit.name;
+  Display.atk = player.currentUnit.atk;
+  Display.def = player.currentUnit.def;
+  Display.hp = player.currentUnit.max_hp;
+  Display.speed = player.currentUnit.speed;
   Display.teamUnitInfo();
 }
 
