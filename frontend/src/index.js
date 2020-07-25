@@ -74,6 +74,7 @@ class Battle {
     } else {
       updateUnitInDb(this.playersUnit);
     }
+    // give stats to unit after battle ends
   }
 }
 
@@ -226,6 +227,7 @@ class Display {
     Display.showElement("run");
     Display.showElement("player-img");
     Display.showElement("enemy-img");
+    Display.showCurrentUnitsStats();
   }
 
   static attackDialog(unitName, targetName, damage) {
@@ -236,12 +238,19 @@ class Display {
     Display.changeHTML("battle-text", text);
   }
 
-  static battleEnd() {
+  static battleEnd(won=false, ranAway=false, money=0) {
     Display.clearEnemy();
     Display.clearPlayersUnit();
     Display.showElement("find-enemy");
     Display.hideElement("fight");
     Display.hideElement("run");
+    if (won) {
+      Display.changeBattleText(`${player.currentUnit.name} has won the fight! You got $${money} for winning!`);
+    } else if (ranAway) {
+      Display.changeBattleText(`${player.currentUnit.name} successfully escaped from ${battle.enemy.name}!`);
+    } else {
+      Display.changeBattleText(`${player.currentUnit.name} has died in battle. You have lost. Rest in peace ${player.currentUnit.name}.`);
+    }
   }
 }
 
