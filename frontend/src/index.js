@@ -85,6 +85,7 @@ class Battle {
       this.player.units.shift();
     } else {
       Display.checkHealBtnStatus();
+      Display.checkRecruitBtnStatus();
       updateTeamInDb();
       // give stats to unit after battle ends
     }
@@ -235,6 +236,14 @@ class Display {
     }
   }
 
+  static checkRecruitBtnStatus() {
+    if (player.units.length < 3 && player.money >= player.recruitCost) {
+      document.querySelector("#recruit").disabled = false;
+    } else {
+      document.querySelector("#recruit").disabled = true;
+    }
+  }
+
   static showCurrentUnitsStats() {
     Display.name = `${player.currentUnit.name}`;
     Display.speed = `${player.currentUnit.speed}`;
@@ -270,9 +279,7 @@ class Display {
     Display.hideElement("new-team");
     Display.showElement("recruit");
     Display.showElement("heal");
-    if (player.units.length === 3) {
-      document.querySelector("#recruit").disabled = true;
-    }
+    Display.checkRecruitBtnStatus();
     Display.checkHealBtnStatus();
     Display.teamUnitInfo();
     if (player.currentUnit) {
@@ -323,9 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   document.querySelector("#recruit").addEventListener("click", function(event) {
     recruitUnit();
-    if (player.units.length === 2) {
-      event.target.disabled = true;
-    }
+    Display.checkRecruitBtnStatus();
     Display.showElement("find-enemy");
   })
   document.querySelector("#heal").addEventListener("click", function(event) {
