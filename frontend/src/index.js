@@ -84,10 +84,10 @@ class Battle {
       removeUnitFromDb(this.playersUnit);
       this.player.units.shift();
     } else {
-      updateUnitInDb(this.playersUnit);
+      Display.checkHealBtnStatus();
+      updateTeamInDb();
+      // give stats to unit after battle ends
     }
-    // give stats to unit after battle ends
-    updateTeamMoneyInDb();
   }
 }
 
@@ -218,6 +218,11 @@ class Display {
     Display.changeHTML("heal-cost", ` Cost: $${player.healCost}`);
   }
 
+  static updateMoneyAndCost() {
+    Display.playersCash();
+    Display.healCost();
+  }
+
   static checkHealBtnStatus() {
     if (player.money < player.healCost || player.currentUnit.max_hp === player.currentUnit.current_hp) {
       document.querySelector("#heal").disabled = true;
@@ -318,13 +323,12 @@ document.addEventListener("DOMContentLoaded", () => {
       event.target.disabled = true;
     }
     Display.showElement("find-enemy");
-    updateTeamMoneyInDb();
   })
   document.querySelector("#heal").addEventListener("click", function(event) {
     player.heal();
     Display.teamUnitInfo();
     Display.showCurrentUnitsStats();
-    updateTeamMoneyInDb();
+    updateTeamInDb();
   })
   document.querySelector("#fight").addEventListener("click", () => {
     battle.fight();
@@ -410,6 +414,7 @@ function renderRecruit(unitJson) {
   Display.speed = player.currentUnit.speed;
   Display.teamUnitInfo();
   Display.unitCost(player.recruitCost);
+  updateTeamInDb();
 }
 
 function fetchEnemy() {
@@ -433,18 +438,19 @@ function removeUnitFromDb(unit) {
   })
 }
 
-function updateUnitInDb(unit) {
-  fetch(`${UNITS_URL}/${unit.id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      "Accept": "application/json"
-    },
-    body: JSON.stringify(unit)
-  })
-}
+// function updateUnitInDb(unit) {
+//   fetch(`${UNITS_URL}/${unit.id}`, {
+//     method: "PATCH",
+//     headers: {
+//       "Content-Type": "application/json",
+//       "Accept": "application/json"
+//     },
+//     body: JSON.stringify(unit)
+//   })
+//   .then(updateTeamMoneyInDb())
+// }
 
-function updateTeamMoneyInDb() {
+function updateTeamInDb() {
   fetch(`${TEAMS_URL}/${player.teamId}`, {
     method: "PATCH",
     headers: {
@@ -452,9 +458,11 @@ function updateTeamMoneyInDb() {
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      money: player.money
+      money: player.money,
+      units: player.units
     })
   })
+  .then(Display.updateMoneyAndCost())
 }
 
 function renderEnemy(unitJson) {
