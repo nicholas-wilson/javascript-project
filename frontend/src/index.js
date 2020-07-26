@@ -82,6 +82,7 @@ class Battle {
       updateUnitInDb(this.playersUnit);
     }
     // give stats to unit after battle ends
+    // updateTeamInDb();       anytime we spend our money or get money
   }
 }
 
@@ -95,6 +96,11 @@ class Player {
   addUnit(unit) {
     this.units.push(unit);
   }
+  heal() {
+    this.money -= this.healCost;
+    this.currentUnit.current_hp = this.currentUnit.max_hp;
+    Display.checkHealBtnStatus();
+  }
   get currentUnit() {
     return this.units[0]; // current unit for now will be the first unit in the array
   }
@@ -107,6 +113,13 @@ class Player {
       this.cost = 0;
     }
     return this.cost;
+  }
+  get healCost() {
+    if (this.currentUnit) {
+      return (this.currentUnit.max_hp - this.currentUnit.current_hp) * 10;
+    } else {
+      return 0;
+    }
   }
 }
 
@@ -189,11 +202,23 @@ class Display {
   }
 
   static playersCash() {
-    Display.changeHTML("players-cash", `Your Team has: $${player.money}`)
+    Display.changeHTML("players-cash", `Your Team has: $${player.money}`);
   }
 
   static unitCost(amount) {
     Display.changeHTML("unit-cost", ` Cost: $${amount}`);
+  }
+
+  static healCost() {
+    Display.changeHTML("heal-cost", ` Cost: $${player.healCost}`);
+  }
+
+  static checkHealBtnStatus() {
+    if (player.money < player.healCost || player.currentUnit.max_hp === player.currentUnit.current_hp) {
+      document.querySelector("#heal").disabled = true;
+    } else {
+      document.querySelector("#heal").disabled = false;
+    }
   }
 
   static showCurrentUnitsStats() {
@@ -230,15 +255,16 @@ class Display {
     Display.hideElement("id-form");
     Display.hideElement("new-team");
     Display.showElement("recruit");
+    Display.showElement("heal");
     if (player.units.length === 3) {
       document.querySelector("#recruit").disabled = true;
     }
+    Display.checkHealBtnStatus();
     Display.teamUnitInfo();
     if (player.currentUnit) {
       Display.showCurrentUnitsStats();
       Display.showElement("find-enemy");
     }
-    // add show for any other team options I add
   }
 
   static battleStart() {
@@ -287,6 +313,13 @@ document.addEventListener("DOMContentLoaded", () => {
       event.target.disabled = true;
     }
     Display.showElement("find-enemy");
+    // updateTeamInDb();       anytime we spend our money or get money
+  })
+  document.querySelector("#heal").addEventListener("click", function(event) {
+    player.heal();
+    Display.teamUnitInfo();
+    Display.showCurrentUnitsStats();
+    // updateTeamInDb()                                 TODO write this function to update the team's data in DB
   })
   document.querySelector("#fight").addEventListener("click", () => {
     battle.fight();
@@ -343,6 +376,7 @@ function renderTeam(teamJson, oldTeam=false) {
   Display.changeHTML("team-id-number", `Your team's id number is: ${teamJson.id}`);
   Display.loadTeam();
   Display.unitCost(player.recruitCost);
+  Display.healCost();
   Display.playersCash();
 }
 
