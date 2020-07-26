@@ -90,12 +90,23 @@ class Player {
     this.units = [];
     this.money = 0;
     this.teamId = "?";
+    this.cost = 0;
   }
   addUnit(unit) {
     this.units.push(unit);
   }
   get currentUnit() {
     return this.units[0]; // current unit for now will be the first unit in the array
+  }
+  get recruitCost() {
+    if (this.units.length === 1) {
+      this.cost = 500;
+    } else if (this.units.length === 2) {
+      this.cost = 5000;
+    } else {
+      this.cost = 0;
+    }
+    return this.cost;
   }
 }
 
@@ -175,6 +186,14 @@ class Display {
     Display.enemySpeed = "";
     Display.enemyAtk = "";
     Display.enemyDef = "";
+  }
+
+  static playersCash() {
+    Display.changeHTML("players-cash", `Your Team has: $${player.money}`)
+  }
+
+  static unitCost(amount) {
+    Display.changeHTML("unit-cost", ` Cost: $${amount}`);
   }
 
   static showCurrentUnitsStats() {
@@ -323,6 +342,8 @@ function renderTeam(teamJson, oldTeam=false) {
   player.teamId = teamJson.id;
   Display.changeHTML("team-id-number", `Your team's id number is: ${teamJson.id}`);
   Display.loadTeam();
+  Display.unitCost(player.recruitCost);
+  Display.playersCash();
 }
 
 function recruitUnit() {
@@ -349,6 +370,7 @@ function renderRecruit(unitJson) {
   Display.hp = player.currentUnit.max_hp;
   Display.speed = player.currentUnit.speed;
   Display.teamUnitInfo();
+  Display.unitCost(player.recruitCost);
 }
 
 function fetchEnemy() {
