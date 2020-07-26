@@ -13,6 +13,11 @@ class Battle {
     return this.player.currentUnit;
   }
 
+  awardMoney(amount=100) {
+    this.player.money += amount;
+    return amount;
+  }
+
   run() {
     // handle escaping from an enemy
     if (this.playersUnit.speed > this.enemy.speed) {
@@ -50,7 +55,7 @@ class Battle {
     Display.teamUnitInfo();
     if (this.isOver()) {
       if(this.enemy.isDead()) {
-        this.endBattle(true, false, 10000000);
+        this.endBattle(true, false, this.awardMoney());
       } else {
         this.endBattle();
       }
@@ -82,7 +87,7 @@ class Battle {
       updateUnitInDb(this.playersUnit);
     }
     // give stats to unit after battle ends
-    // updateTeamInDb();       anytime we spend our money or get money
+    updateTeamMoneyInDb();
   }
 }
 
@@ -313,13 +318,13 @@ document.addEventListener("DOMContentLoaded", () => {
       event.target.disabled = true;
     }
     Display.showElement("find-enemy");
-    // updateTeamInDb();       anytime we spend our money or get money
+    updateTeamMoneyInDb();
   })
   document.querySelector("#heal").addEventListener("click", function(event) {
     player.heal();
     Display.teamUnitInfo();
     Display.showCurrentUnitsStats();
-    // updateTeamInDb()                                 TODO write this function to update the team's data in DB
+    updateTeamMoneyInDb();
   })
   document.querySelector("#fight").addEventListener("click", () => {
     battle.fight();
@@ -436,6 +441,19 @@ function updateUnitInDb(unit) {
       "Accept": "application/json"
     },
     body: JSON.stringify(unit)
+  })
+}
+
+function updateTeamMoneyInDb() {
+  fetch(`${TEAMS_URL}/${player.teamId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      money: player.money
+    })
   })
 }
 

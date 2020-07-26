@@ -10,6 +10,7 @@ class TeamsController < ApplicationController
   end
 
   def update
-    # use this when I recruit new unit or earn more money
+    team = Team.find_by(:id => params[:id])
+    team.update(money: params[:money])
   end
 end
