@@ -224,6 +224,10 @@ class Display {
   }
 
   static checkHealBtnStatus() {
+    if (!player.currentUnit) {
+      document.querySelector("#heal").disabled = true;
+      return;
+    }
     if (player.money < player.healCost || player.currentUnit.max_hp === player.currentUnit.current_hp) {
       document.querySelector("#heal").disabled = true;
     } else {
