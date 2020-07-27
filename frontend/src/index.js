@@ -134,7 +134,7 @@ class Player {
 class Unit {
   constructor(unitJson) {
     this.name = unitJson.name;
-    this.unitType = unitJson.unitType;
+    this.unitType = unitJson.unit_type;
     this.atk = unitJson.atk;
     this.max_hp = unitJson.max_hp;
     this.current_hp = unitJson.current_hp;
@@ -202,9 +202,12 @@ class Display {
     document.querySelector("#def").innerHTML = `Defense ${value}`;
   }
 
-  static updateUnitPics() {
-    document.querySelector("#enemy-img").src = `${battle.enemy.unitType}.png`;
+  static updatePlayerPic() {
     document.querySelector("#player-img").src = `${battle.playersUnit.unitType}.png`;
+  }
+
+  static updateEnemyPic() {
+    document.querySelector("#enemy-img").src = `${battle.enemy.unitType}.png`;
   }
 
   static clearEnemy(hp="") {
@@ -258,6 +261,7 @@ class Display {
     Display.atk = `${player.currentUnit.atk}`;
     Display.def = `${player.currentUnit.def}`;
     Display.hp = `${player.currentUnit.current_hp}`;
+    Display.updatePlayerPic();
   }
 
   static hideElement(elementId) {
@@ -302,7 +306,6 @@ class Display {
     Display.showElement("run");
     Display.showElement("player-img");
     Display.showElement("enemy-img");
-    Display.updateUnitPics();
     Display.showCurrentUnitsStats();
   }
 
@@ -494,6 +497,7 @@ function renderEnemy(unitJson) {
   Display.enemyHp = unitJson.max_hp;
   Display.enemySpeed = unitJson.speed;
   battle.enemy = new Unit(unitJson);
+  Display.updateEnemyPic();
 }
 // game constants
 const player = new Player();
