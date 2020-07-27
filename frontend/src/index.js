@@ -18,6 +18,21 @@ class Battle {
     return amount;
   }
 
+  awardStats() {
+    if (this.playersUnit.max_hp < this.enemy.max_hp) {
+      this.playersUnit.max_hp += Math.round((this.enemy.max_hp - this.playersUnit.max_hp) / 2);
+    }
+    if (this.playersUnit.atk < this.enemy.atk) {
+      this.playersUnit.atk += Math.round((this.enemy.atk - this.playersUnit.atk) / 2);
+    }
+    if (this.playersUnit.def < this.enemy.def) {
+      this.playersUnit.def += Math.round((this.enemy.def - this.playersUnit.def) / 2);
+    }
+    if (this.playersUnit.speed < this.enemy.speed) {
+      this.playersUnit.speed += Math.round((this.enemy.speed - this.playersUnit.speed) / 2);
+    }
+  }
+
   run() {
     // handle escaping from an enemy
     let html = "";
@@ -58,6 +73,7 @@ class Battle {
     Display.teamUnitInfo();
     if (this.isOver()) {
       if(this.enemy.isDead()) {
+        this.awardStats();
         this.endBattle(true, false, this.awardMoney());
       } else {
         this.endBattle();
@@ -92,7 +108,6 @@ class Battle {
       Display.teamUnitInfo();
     } else {
       updateTeamInDb();
-      // give stats to unit after battle ends
     }
     Display.checkRecruitBtnStatus();
     Display.checkHealBtnStatus();
@@ -349,8 +364,9 @@ class Display {
       Display.changeBattleText(`${player.currentUnit.name} successfully escaped from ${battle.enemy.name}!`);
     } else {
       Display.changeBattleText(`${player.currentUnit.name} has died in battle. You have lost. Rest in peace ${player.currentUnit.name}.`);
-      Display.showCurrentUnitsStats();
     }
+    Display.showCurrentUnitsStats();
+    Display.teamUnitInfo();
   }
 }
 
