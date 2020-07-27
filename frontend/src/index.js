@@ -134,6 +134,7 @@ class Player {
 class Unit {
   constructor(unitJson) {
     this.name = unitJson.name;
+    this.unitType = unitJson.unitType;
     this.atk = unitJson.atk;
     this.max_hp = unitJson.max_hp;
     this.current_hp = unitJson.current_hp;
@@ -199,6 +200,11 @@ class Display {
 
   static set def(value) {
     document.querySelector("#def").innerHTML = `Defense ${value}`;
+  }
+
+  static updateUnitPics() {
+    document.querySelector("#enemy-img").src = `${battle.enemy.unitType}.png`;
+    document.querySelector("#player-img").src = `${battle.playersUnit.unitType}.png`;
   }
 
   static clearEnemy(hp="") {
@@ -296,6 +302,7 @@ class Display {
     Display.showElement("run");
     Display.showElement("player-img");
     Display.showElement("enemy-img");
+    Display.updateUnitPics();
     Display.showCurrentUnitsStats();
   }
 
