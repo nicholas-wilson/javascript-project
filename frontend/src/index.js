@@ -85,13 +85,18 @@ class Battle {
     if (this.playersUnit.isDead()) {
       removeUnitFromDb(this.playersUnit);
       this.player.units.shift();
+      if (this.player.units.length < 1) {
+        document.querySelector("#find-enemy").disabled = true;
+      }
       Display.teamUnitInfo();
     } else {
-      Display.checkHealBtnStatus();
-      Display.checkRecruitBtnStatus();
       updateTeamInDb();
       // give stats to unit after battle ends
     }
+    Display.checkRecruitBtnStatus();
+    Display.checkHealBtnStatus();
+    Display.healCost();
+    Display.unitCost();
   }
 }
 
@@ -223,8 +228,8 @@ class Display {
     Display.changeHTML("players-cash", `Your Team has: $${player.money}`);
   }
 
-  static unitCost(amount) {
-    Display.changeHTML("unit-cost", ` Cost: $${amount}`);
+  static unitCost() {
+    Display.changeHTML("unit-cost", ` Cost: $${player.recruitCost}`);
   }
 
   static healCost() {
@@ -318,6 +323,8 @@ class Display {
     Display.showElement("run");
     Display.showElement("player-img");
     Display.showElement("enemy-img");
+    document.querySelector("#heal").disabled = true;
+    document.querySelector("#recruit").disabled = true;
     Display.showCurrentUnitsStats();
   }
 
@@ -358,6 +365,7 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   document.querySelector("#heal").addEventListener("click", function(event) {
     player.heal();
+    Display.checkRecruitBtnStatus();
     Display.teamUnitInfo();
     Display.showCurrentUnitsStats();
     updateTeamInDb();
@@ -420,7 +428,7 @@ function renderTeam(teamJson, oldTeam=false) {
   player.teamId = teamJson.id;
   Display.changeHTML("team-id-number", `Your team's id number is: ${teamJson.id}`);
   Display.loadTeam();
-  Display.unitCost(player.recruitCost);
+  Display.unitCost();
   Display.healCost();
   Display.playersCash();
 }
@@ -449,8 +457,10 @@ function renderRecruit(unitJson) {
   Display.hp = player.currentUnit.max_hp;
   Display.speed = player.currentUnit.speed;
   Display.teamUnitInfo();
-  Display.unitCost(player.recruitCost);
+  Display.unitCost();
   Display.checkRecruitBtnStatus();
+  Display.checkHealBtnStatus();
+  document.querySelector("#find-enemy").disabled = false;
   updateTeamInDb();
 }
 
