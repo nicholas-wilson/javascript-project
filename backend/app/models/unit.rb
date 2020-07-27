@@ -24,12 +24,19 @@ class Unit < ApplicationRecord
     strong: [16, 25]
   }
 
+  TYPES = ["human", "demon", "goblin"]
+
   def random_stats(strength)
     random_atk(strength)
     random_def(strength)
     random_hp(strength)
     random_speed(strength)
+    random_type
     self.name = Faker::Name.first_name
+  end
+
+  def random_type
+    self.type = TYPES[rand 3]
   end
 
   def random_atk(strength)
