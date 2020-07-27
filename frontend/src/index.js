@@ -22,18 +22,19 @@ class Battle {
     // handle escaping from an enemy
     let html = "";
     if (this.playersUnit.speed > this.enemy.speed) {
-      // battle will end
+      this.endBattle(false, true);
     } else if (this.enemy.speed - this.playersUnit.speed <= 5){
       if (Math.round(Math.random())) {
-        // battle will end
+        this.endBattle(false, true);
       } else {
         html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
       }
     } else {
       html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
     }
-    Display.changeBattleText(html);
-    this.endBattle(false, true);
+    if (html !== "") {
+      Display.changeBattleText(html);
+    }
   }
 
   fight() {
