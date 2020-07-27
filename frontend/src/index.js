@@ -20,18 +20,20 @@ class Battle {
 
   run() {
     // handle escaping from an enemy
+    let html = "";
     if (this.playersUnit.speed > this.enemy.speed) {
       // battle will end
     } else if (this.enemy.speed - this.playersUnit.speed <= 5){
       if (Math.round(Math.random())) {
         // battle will end
       } else {
-        this.enemy.attack(this.playersUnit);
+        html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
       }
     } else {
-      this.enemy.attack(this.playersUnit);
+      html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
     }
-    this.endBattle();
+    Display.changeBattleText(html);
+    this.endBattle(false, true);
   }
 
   fight() {
@@ -341,6 +343,9 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   document.querySelector("#fight").addEventListener("click", () => {
     battle.fight();
+  })
+  document.querySelector("#run").addEventListener("click", () => {
+    battle.run();
   })
   // team buttons
   document.querySelector("#load-team").addEventListener("click", function(event) {
