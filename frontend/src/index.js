@@ -85,6 +85,7 @@ class Battle {
     if (this.playersUnit.isDead()) {
       removeUnitFromDb(this.playersUnit);
       this.player.units.shift();
+      Display.teamUnitInfo();
     } else {
       Display.checkHealBtnStatus();
       Display.checkRecruitBtnStatus();
@@ -277,12 +278,23 @@ class Display {
   }
 
   static teamUnitInfo() {
+    Display.resetTeamInfo();
     for (let i = 0; i < player.units.length; i++) {
       Display.changeHTML(`name-${i + 1}`, player.units[i].name);
       Display.changeHTML(`atk-${i + 1}`, `Attack ${player.units[i].atk}`);
       Display.changeHTML(`def-${i + 1}`, `Defence ${player.units[i].def}`);
       Display.changeHTML(`hp-${i + 1}`, `Health ${player.units[i].current_hp}/${player.units[i].max_hp}`);
       Display.changeHTML(`speed-${i + 1}`, `Speed ${player.units[i].speed}`);
+    }
+  }
+
+  static resetTeamInfo() {
+    for (let i = 0; i < 3; i++) {
+      Display.changeHTML(`name-${i + 1}`, "");
+      Display.changeHTML(`atk-${i + 1}`, "");
+      Display.changeHTML(`def-${i + 1}`, "");
+      Display.changeHTML(`hp-${i + 1}`, "");
+      Display.changeHTML(`speed-${i + 1}`, "");
     }
   }
 
