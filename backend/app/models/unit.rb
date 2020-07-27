@@ -36,7 +36,7 @@ class Unit < ApplicationRecord
   end
 
   def random_type
-    self.type = TYPES[rand 3]
+    self.unit_type = TYPES[rand 3]
   end
 
   def random_atk(strength)

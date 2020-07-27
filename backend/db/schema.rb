@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_20_182954) do
+ActiveRecord::Schema.define(version: 2020_07_27_194826) do
 
   create_table "teams", force: :cascade do |t|
     t.integer "money", default: 0
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_07_20_182954) do
   end
 
   create_table "units", force: :cascade do |t|
-    t.string "type"
+    t.string "unit_type"
     t.string "name"
     t.integer "max_hp"
     t.integer "current_hp"
