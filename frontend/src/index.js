@@ -332,7 +332,6 @@ document.addEventListener("DOMContentLoaded", () => {
   })
   document.querySelector("#recruit").addEventListener("click", function(event) {
     recruitUnit();
-    Display.checkRecruitBtnStatus();
     Display.showElement("find-enemy");
   })
   document.querySelector("#heal").addEventListener("click", function(event) {
@@ -390,6 +389,7 @@ function renderTeamIfFound(teamJson) {
 
 function renderTeam(teamJson, oldTeam=false) {
   if (oldTeam) {
+    player.money = teamJson.money;
     for (let i = 0; i < teamJson.units.length; i++) {
       let newUnit = new Unit(teamJson.units[i]);
       player.addUnit(newUnit);
@@ -428,6 +428,7 @@ function renderRecruit(unitJson) {
   Display.speed = player.currentUnit.speed;
   Display.teamUnitInfo();
   Display.unitCost(player.recruitCost);
+  Display.checkRecruitBtnStatus();
   updateTeamInDb();
 }
 
