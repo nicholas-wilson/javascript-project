@@ -2,26 +2,26 @@ class Unit < ApplicationRecord
   belongs_to :team
   
   ATK_RANGES = {
-    weak: [1, 10],
-    average: [11, 25],
-    strong: [26, 40]
+    weak: [2, 5],
+    average: [6, 10],
+    strong: [11, 15]
   }
   DEF_RANGES = {
-    weak: [1, 5],
-    average: [6, 10],
-    strong: [11, 25]
+    weak: [1, 3],
+    average: [4, 7],
+    strong: [8, 10]
   }
 
   HP_RANGES = {
-    weak: [5, 15],
-    average: [16, 25],
-    strong: [26, 40]
+    weak: [5, 10],
+    average: [11, 15],
+    strong: [16, 20]
   }
 
   SPEED_RANGES = {
     weak: [1, 10],
-    average: [11, 25],
-    strong: [26, 40]
+    average: [11, 15],
+    strong: [16, 25]
   }
 
   def random_stats(strength)
