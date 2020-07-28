@@ -13,6 +13,16 @@ class Battle {
     return this.player.currentUnit;
   }
 
+  enemyDifficulty() {
+    let strength = "weak";
+    if (this.playersUnit.atk >= 10) {
+      strength = "strong"
+    } else if (this.playersUnit.atk >= 5) {
+      strength = "average";
+    }
+    return strength;
+  }
+
   awardMoney(amount=100) {
     this.player.money += amount;
     return amount;
@@ -458,7 +468,7 @@ function recruitUnit() {
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      level: "weak",
+      level: `${battle.enemyDifficulty()}`,
       teamId: `${player.teamId}`
     })
   })
@@ -489,7 +499,7 @@ function fetchEnemy() {
       'Accept': 'application/json'
     },
     body: JSON.stringify({
-      level: "weak"
+      level: `${battle.enemyDifficulty()}`
     })
   })
   .then(response => response.json())
