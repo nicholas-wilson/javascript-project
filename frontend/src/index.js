@@ -55,9 +55,15 @@ class Battle {
         this.endBattle(false, true);
       } else {
         html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
+        html+= `<li>${this.playersUnit.name} failed to escape!</li>`;
       }
     } else {
       html += `<li>${Display.attackDialog(this.enemy.name, this.playersUnit.name, this.enemy.attack(this.playersUnit))}</li>`;
+      html+= `<li>${this.playersUnit.name} failed to escape!</li>`;
+    }
+    if (this.playersUnit.isDead()) {
+      this.endBattle();
+      html = `${this.playersUnit.name} has died.  You have lost. Rest in peace ${player.currentUnit.name}.`;
     }
     if (html !== "") {
       Display.changeBattleText(html);
