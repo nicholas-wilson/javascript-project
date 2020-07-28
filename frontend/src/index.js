@@ -15,10 +15,12 @@ class Battle {
 
   enemyDifficulty() {
     let strength = "weak";
-    if (this.playersUnit.atk >= 10) {
-      strength = "strong"
-    } else if (this.playersUnit.atk >= 5) {
-      strength = "average";
+    if (this.player.units.length > 0){
+      if (this.playersUnit.atk >= 10) {
+        strength = "strong"
+      } else if (this.playersUnit.atk >= 5) {
+        strength = "average";
+      }
     }
     return strength;
   }
