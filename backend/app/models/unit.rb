@@ -3,11 +3,11 @@ class Unit < ApplicationRecord
   
   ATK_RANGES = {
     weak: [2, 5],
-    average: [6, 10],
+    average: [5, 10],
     strong: [11, 15]
   }
   DEF_RANGES = {
-    weak: [1, 3],
+    weak: [1, 4],
     average: [4, 7],
     strong: [8, 10]
   }
@@ -19,9 +19,9 @@ class Unit < ApplicationRecord
   }
 
   SPEED_RANGES = {
-    weak: [1, 10],
-    average: [11, 15],
-    strong: [16, 25]
+    weak: [1, 5],
+    average: [3, 7],
+    strong: [5, 10]
   }
 
   TYPES = ["human", "demon", "goblin"]
