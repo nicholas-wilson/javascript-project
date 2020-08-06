@@ -555,6 +555,7 @@ function renderEnemy(unitJson) {
   Display.enemySpeed = unitJson.speed;
   battle.enemy = new Unit(unitJson);
   Display.updateEnemyPic();
+  Display.changeBattleText(`${battle.enemy.name} has appeared! \nWill you fight or run?`);
 }
 // game constants
 const player = new Player();
