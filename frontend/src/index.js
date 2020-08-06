@@ -30,19 +30,19 @@ class Battle {
     return amount;
   }
 
+  statIncrease(statName) {
+    if (this.playersUnit[statName] < this.enemy[statName]) {
+      this.playersUnit[statName] += Math.round((this.enemy[statName] - this.playersUnit[statName]) / 2);
+    } else if(Math.ceil(Math.random() * 10) === 10){
+      this.playersUnit[statName] += 1;
+    }
+  }
+
   awardStats() {
-    if (this.playersUnit.max_hp < this.enemy.max_hp) {
-      this.playersUnit.max_hp += Math.round((this.enemy.max_hp - this.playersUnit.max_hp) / 2);
-    }
-    if (this.playersUnit.atk < this.enemy.atk) {
-      this.playersUnit.atk += Math.round((this.enemy.atk - this.playersUnit.atk) / 2);
-    }
-    if (this.playersUnit.def < this.enemy.def) {
-      this.playersUnit.def += Math.round((this.enemy.def - this.playersUnit.def) / 2);
-    }
-    if (this.playersUnit.speed < this.enemy.speed) {
-      this.playersUnit.speed += Math.round((this.enemy.speed - this.playersUnit.speed) / 2);
-    }
+    this.statIncrease("atk");
+    this.statIncrease("def");
+    this.statIncrease("max_hp");
+    this.statIncrease("speed");
   }
 
   run() {
